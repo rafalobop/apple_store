@@ -1,11 +1,14 @@
+import { RiMacbookLine} from 'react-icons/ri'
+
 export default {
   name: 'product',
   title: 'Product',
   type: 'document',
+  icon: RiMacbookLine,
   fields: [
     {
       name: 'title',
-      title: 'Title',
+      title: 'Name',
       type: 'string',
     },
     {
@@ -18,68 +21,26 @@ export default {
       },
     },
     {
-      title: 'Default variant',
-      name: 'defaultProductVariant',
-      type: 'productVariant',
+      name: "image",
+      title: "Image",
+      type: "array",
+      of: [{ type: "image"}],
+      options:{
+        hotspot: true
+      }
     },
     {
-      title: 'Variants',
-      name: 'variants',
-      type: 'array',
-      of: [
-        {
-          title: 'Variant',
-          type: 'productVariant',
-        },
-      ],
-    },
-    {
-      title: 'Tags',
-      name: 'tags',
-      type: 'array',
-      of: [
-        {
-          type: 'string',
-        },
-      ],
-      options: {
-        layout: 'tags',
-      },
-    },
-    {
-      name: 'vendor',
-      title: 'Vendor',
+      name: 'category',
+      title: 'Category',
       type: 'reference',
-      to: {type: 'vendor'},
+      to: [{type: 'category'}],
     },
     {
-      name: 'blurb',
-      title: 'Blurb',
-      type: 'localeString',
-    },
-    {
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          to: {type: 'category'},
-        },
-      ],
-    },
-    {
-      name: 'body',
-      title: 'Body',
-      type: 'localeBlockContent',
+      name: 'price',
+      title: 'Price',
+      type: 'number',
     },
   ],
 
-  preview: {
-    select: {
-      title: 'title',
-      manufactor: 'manufactor.title',
-      media: 'defaultProductVariant.images[0]',
-    },
-  },
+  
 }

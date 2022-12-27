@@ -4,16 +4,19 @@ import Link from 'next/link'
 import { BsSearch, } from 'react-icons/bs'
 import { AiOutlineShopping } from 'react-icons/ai'
 import { FiUser } from 'react-icons/fi'
+import { useSelector } from 'react-redux'
+import { selectBasketItems } from '../redux/basketSlice'
 
 function Header() {
 
     const session = false
+    const items = useSelector(selectBasketItems)
 
     return (
         <header className='sticky top-0 z-30 flex w-full items-center justify-between bg-[#e7ecee] p-4'>
             <div className='flex items-center justify-center md:w-1/5'>
                 <Link href="/">
-                    <div className='relative h-10 w-5 cursor-pointer opacity-75 transition hover:opacity-100'> 
+                    <div className='flex items-center justify-center relative h-10 w-5 cursor-pointer opacity-75 transition hover:opacity-100'> 
                         <Image 
                             src={"https://assets.stickpng.com/images/580b57fcd9996e24bc43c516.png"} 
                             alt="/" 
@@ -31,19 +34,19 @@ function Header() {
                 <a className='headerLink'>Business</a>
             </div>
             <div className='flex items-center justifc gap-x-4 md:w-1/5'>
-                <BsSearch className='headerLink'/>
+                <BsSearch className='headerIcon'/>
                 <Link href="/checkout">
                     <div className='relative cursor-pointer'>
                         <span className='absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[10px] text-white'>
-                            5
+                            {items.length}
                         </span>
-                        <AiOutlineShopping />
+                        <AiOutlineShopping className='headerIcon'/>
                     </div>
                 </Link>
 
-                {session ? (
+                {/* {session ? (
                     <Image />
-                ) : ( <FiUser className='headerIcon' onClick={() => signin()} />)}
+                ) : ( <FiUser className='headerIcon' onClick={() => signin()} />)} */}
 
             </div>
         </header>

@@ -6,7 +6,7 @@
 
 @layer base {
     body {
-        @apply font-body text-[#232428]
+        @apply font-body text-[#232428] bg-[#FAFAFA]
     }
 }
 
@@ -16,6 +16,17 @@
     }
 
     .headerIcon{
-        @apply h-6 w-6 cursor-pointer opacity-75 transition hover:opacity-100
+        @apply h-6 w-6 cursor-pointer opacity-75 transition hover:opacity-100 
+    }
+
+    .borderGradient{
+        text-align: center;
+        padding-bottom: 5px;
+        background: linear-gradient(to right, #ec4899, #8b5cf6) left bottom no-repeat;
+        background-size: 100% 2px;
+    }
+
+    .tabPanel{
+        @apply grid grid-cols-1 gap-9 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3
     }
 }

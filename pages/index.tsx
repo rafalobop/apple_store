@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { Tab } from '@headlessui/react'
 import { fetchCategories } from '../utils/fetchCategories'
 import { fetchProducts } from '../utils/fetchProducts'
+import Basket from '../components/Basket'
 
 interface Props{
   categories: Category[];
@@ -29,12 +30,17 @@ const Home = ({categories, products}: Props) => {
     <div>
       <Head>
         <title>Apple Store</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/applelogo.ico" />
       </Head>
+
       <Header />
+
+      <Basket />
+
       <main className='relative h-[200vh]'>
         <Landing />
       </main>
+
       <section className='relative z-40 -mt-[100vh] min-h-screen bg-[#181818]'>
         <div className='space-y-10 py-16'>
           <h1 className='text-center text-4xl font-medium tracking-wide text-white md:text-5xl'>New Promos</h1>
@@ -60,6 +66,7 @@ const Home = ({categories, products}: Props) => {
           </Tab.Group>
         </div>
       </section>
+
     </div>
   )
 }

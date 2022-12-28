@@ -8,6 +8,9 @@ import { useState, useEffect } from 'react'
 import Button from '../components/Button'
 import CheckoutProduct from '../components/CheckoutProduct'
 import { BsChevronCompactDown } from 'react-icons/bs'
+import { Stripe } from 'stripe'
+import { fetchPostJSON } from '../utils/api-helpers'
+import getStripe from '../utils/get-stripejs'
 
 function Checkout() {
 
@@ -15,6 +18,7 @@ function Checkout() {
     const basketTotal = useSelector(selectBasketTotal)
     const router = useRouter()
     const [ groupedItemsInBasket, setGroupedItemsInBasket ] = useState({} as {[key: string]: Product[]})
+    const [ loading, setLoading ] = useState(false)
 
     useEffect(() => {
         const groupedItems = items.reduce((result, item) => {
@@ -24,6 +28,27 @@ function Checkout() {
 
         setGroupedItemsInBasket(groupedItems)
     }, [items])
+
+    const createCheckoutSession = async () => {
+        setLoading(true)
+
+        const checkoutSession: Stripe.Checkout.Session = await fetchPostJSON(
+            "/api/checkout_sessions",
+            {
+                items: items
+            }
+        )
+        if((checkoutSession as any).statusCode === 500){
+            console.error((checkoutSession as any).message)
+        }
+
+        const stripe = await getStripe()
+        const { error } = await stripe!.redirectToCheckout({
+            sessionId: checkoutSession.id
+        })
+        console.warn(error.message)
+        setLoading(false)
+    }
 
     return (
     <div className='min-h-screen overflow-hidden bg-[#e7ecee]'>
@@ -96,7 +121,7 @@ function Checkout() {
                                             USD ${basketTotal}
                                         </span>
                                     </h4>
-                                    <Button noIcon title="Checkout" width='w-full'/>
+                                    <Button noIcon title="Checkout" width='w-full' loading={loading} onClick={createCheckoutSession}/>
                                 </div>
                             </div>
                         </div>

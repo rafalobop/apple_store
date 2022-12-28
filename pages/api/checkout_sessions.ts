@@ -36,9 +36,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse 
                     )
                 }
             }
-            const checkoutSesion: Stripe.Checkout.Session = await stripe.checkout.sessions.create(params)
-
-            res.status(200).json({name: "ILW yenny"})
+            const checkoutSession: Stripe.Checkout.Session = await stripe.checkout.sessions.create(params)
+            res.status(200).json({name: "ILW yenny", id: checkoutSession.id})
             
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : "Internal server error";

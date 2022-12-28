@@ -12,9 +12,12 @@ export async function fetchPostJSON(url: string, data?:{}){
             referrerPolicy: "no-referrer",
             body: JSON.stringify(data || {})
         })
+
         return await response.json()
     } catch (error) {
+        console.log('eeee', error)
         if(error instanceof Error){
+            console.log('eee', error)
             throw new Error(error.message)
         }
         throw error;

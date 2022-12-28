@@ -9,6 +9,7 @@ import { useMediaQuery } from 'react-responsive'
 import { FiChevronDown, FiChevronUp, FiShoppingCart } from 'react-icons/fi'
 import { GetServerSideProps } from 'next'
 import { fetchLineItems } from '../utils/fetchLineItems'
+import { useSession } from 'next-auth/react'
 
 
 
@@ -23,6 +24,7 @@ function Success({ products }: Props) {
     const [ mounted, setMounted ] = useState(false)
     const [ showOrderSummary, setShowOrderSummary ] = useState(false)
     const subtotal = products.reduce((acc, product) => acc + product.price.unit_amount / 100, 0)
+    const { data: session } = useSession()
 
     useEffect(() => {
         setMounted(true)
@@ -54,7 +56,7 @@ function Success({ products }: Props) {
                     </div>
                 </Link>
             </header>
-            <main className='grid grid-cols-1 lg:grid-col-9'>
+            <main className='flex flex-col lg:flex-row'>
                 <section className='order-2 mx-auto max-w-xl pb-12 lg:mx-0 lg:max-w-none lg:pr-16 lg:pt-16 xl:pl-16 2xl:pl-44'>
                     <Link href="/">
                         <div className='relative ml-14 hidden h-24 w-12 cursor-pointer transition lg:inline-flex'>
@@ -112,9 +114,9 @@ function Success({ products }: Props) {
                 </section>
 
                 {mounted && (
-                    <section className='overflow-y-scroll border-y border-l border-gray-300 bg-[#fafafa] lg:order-2 lg:col-span-4 lg:h-screen lg:border-y-0'>
+                    <section className='overflow-x-hidden border-y border-l border-gray-300 bg-[#fafafa] lg:order-2 lg:col-span-4 lg:h-screen lg:border-y-0'>
                         <div className={`w-full ${showOrderSummaryCondition && "border-b"} border-gray-300 text-sm lg:hidden`}>
-                            <div className='mx-auto flex max-w-xl items-center justify-between px-4 py-6'>
+                            <div className='mx-auto flex max-w-xl items-center justify-center px-4 py-6'>
                                 <button 
                                     onClick={handleShowOrderSummary} 
                                     className="flex items-center space-x-2"
@@ -132,7 +134,7 @@ function Success({ products }: Props) {
                         </div>
 
                         {showOrderSummaryCondition && (
-                            <div className='mx-auto max-w-xl divide-y border-gray-300 px-4 py-4 lg:mx-0 lg:max-w-lg lg:px-10 lg:py-16'>
+                            <div className='mx-auto max-w-xl divide-y border-gray-300 px-4 py-4 lg:mx-0 lg:max-w-lg lg:px-10 lg:py-16 lg:mt-52'>
                                 <div className='space-y-4 pb-4'>
                                     {products.map((product) => (
                                         <div key={product.id} className="flex items-center space-x-4 text-sm font-medium">

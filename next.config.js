@@ -10,13 +10,14 @@ module.exports = {
         hostname: 'cdn.sanity.io',
       },
       {
-        protocol:'https',
+        protocol: 'https',
         hostname: 'assets.stickpng.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com'
       }
     ],
     minimumCacheTTL: 1500000
   }
-  /*  images: {
-    domains: ["cdn.sanity.io", "assets.stickpng.com"]
-  } */
 }

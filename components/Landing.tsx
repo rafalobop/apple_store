@@ -4,6 +4,14 @@ import Banner from '../public/images/banner.jpg'
 import Button from './Button'
 
 function Landing() {
+
+  const scrollDown = () => {
+    window.scrollTo({
+      behavior: "smooth",
+      top: 830
+    })
+  }
+
   return (
     <section className='sticky top-0 mx-auto flex h-screen max-w-[1350px] items-center justify-between px-8'>  
       <div className='space-y-8'>
@@ -13,7 +21,7 @@ function Landing() {
           <span className='block'>Driven By Values</span>
         </h1>
         <div className='space-x-8'>
-          <Button title="Buy Now"/>
+          <Button title="Buy Now" onClick={scrollDown}/>
           <a className='relative cursor-pointer text-lg font-medium inset-x-0 -bottom-1 h-0.5 origin-left hover:underline'>Learn More</a>
         </div>
       </div>

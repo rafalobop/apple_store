@@ -6,10 +6,12 @@ import { AiOutlineShopping } from 'react-icons/ai'
 import { FiUser } from 'react-icons/fi'
 import { useSelector } from 'react-redux'
 import { selectBasketItems } from '../redux/basketSlice'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 function Header() {
 
-    const session = false
+    const session = useSession()
+
     const items = useSelector(selectBasketItems)
 
     return (
@@ -44,9 +46,9 @@ function Header() {
                     </div>
                 </Link>
 
-                {/* {session ? (
-                    <Image />
-                ) : ( <FiUser className='headerIcon' onClick={() => signin()} />)} */}
+                {session?.data ? (
+                    <Image onClick={() => signOut()} src={session?.data?.user?.image  || 'https://assets.stickpng.com/thumbs/585e4beacb11b227491c3399.png'} className='cursor-pointer rounded-full' width={25} height={25} alt="83" />
+                ) : ( <FiUser className='headerIcon' onClick={() => signIn()} />)}
 
             </div>
         </header>
